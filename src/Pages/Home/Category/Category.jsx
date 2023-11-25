@@ -20,7 +20,7 @@ const Category = () => {
         subHeading="Find Joy in Every Adoption - Choose Your Ideal Pet Today!"
       ></Title>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
         {cateegory.map((item) => (
           <div key={item._id}>
             <div className="card shadow-xl bg-[#f8c29e]">
