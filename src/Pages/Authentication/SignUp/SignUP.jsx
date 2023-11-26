@@ -45,6 +45,7 @@ const SignUP = () => {
             name: name,
             photo: res.data.data.display_url,
             email: email,
+            role: 'user'
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             console.log("user added", res.data);
