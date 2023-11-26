@@ -70,7 +70,7 @@ const Navbar = () => {
                           <a className="justify-between">{user.displayName}</a>
                         </li>
                         <li>
-                          <a>Settings</a>
+                          <Link to="/dashboard"><p>Dashboard</p></Link>
                         </li>
                         <li>
                           <button

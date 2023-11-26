@@ -3,6 +3,8 @@ import MainLayout from "../MainLayuot/MainLayout";
 import Home from "../Pages/Home/Home";
 import SignIn from "../Pages/Authentication/SignIn/SignIn";
 import SignUP from "../Pages/Authentication/SignUp/SignUP";
+import Dashboard from "../MainLayuot/Dashboard";
+import AddAPet from "../Pages/Dashboard/AddAPet/AddAPet";
 
 const Router = createBrowserRouter([
   {
@@ -23,5 +25,15 @@ const Router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+        {
+            path: "add-pet",
+            element: <AddAPet></AddAPet>
+        }
+    ]
+  }
 ]);
 export default Router;
