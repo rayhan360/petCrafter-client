@@ -1,29 +1,19 @@
 import { useFormik } from "formik";
-import Select from "react-select";
 import axios from "axios";
 import { CloudinaryContext, Image } from "cloudinary-react";
 import { FaExclamationCircle } from "react-icons/fa";
 import Title from "../../../components/Common/Title";
 import useAuth from "../../../hooks/useAuth";
-
-const categories = [
-  { label: "Cats" },
-  { label: "Dogs" },
-  { label: "Rabbits" },
-  { label: "Birds" },
-];
+import Swal from "sweetalert2";
 
 const initialValues = {
   petImage: null,
-  petName: "",
-  petAge: "",
-  petCategory: null,
-  petLocation: "",
+  maximumAmount: "",
+  lastDateOfDonation: "",
   shortDescription: "",
   longDescription: "",
 };
-
-const AddAPet = () => {
+const CreateDonation = () => {
   const { user } = useAuth();
   const formik = useFormik({
     initialValues,
@@ -44,12 +34,19 @@ const AddAPet = () => {
           ...values,
           petImage: cloudinaryResponse.data.secure_url,
           addedDate: new Date(),
-          adopted: false,
           email: user?.email,
         };
-  
 
-        await axios.post("http://localhost:3000/pets", petData);
+        const res = await axios.post("http://localhost:3000/donation", petData);
+        if(res.data.insertedId){
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `You'r successfully created a donation`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+        }
 
         formik.resetForm();
       } catch (error) {
@@ -63,15 +60,11 @@ const AddAPet = () => {
       if (!values.petImage) {
         errors.petImage = "Pet image is required";
       }
-
-      if (!values.petName) {
-        errors.petName = "Pet name is required";
+      if (!values.maximumAmount) {
+        errors.petAge = "Maximum Amount is required";
       }
-      if (!values.petAge) {
-        errors.petAge = "Pet age is required";
-      }
-      if (!values.petLocation) {
-        errors.petLocation = "Pet Location is required";
+      if (!values.lastDateOfDonation) {
+        errors.lastDateOfDonation = "Pet Location is required";
       }
       if (!values.shortDescription) {
         errors.shortDescription = "This field required";
@@ -83,38 +76,14 @@ const AddAPet = () => {
       return errors;
     },
   });
-
   return (
     <div>
       <Title
-        heading="Add Pets"
-        subHeading="Add Your Pets to Adopt Another"
+        heading="Create Your Donation Campaign"
       ></Title>
       <form onSubmit={formik.handleSubmit}>
         {/* pet image and pet pet name field */}
         <div className="flex flex-col md:flex-row gap-2">
-          <div className=" w-full">
-            <label
-              htmlFor="petName"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Pet Name
-            </label>
-            <input
-              type="text"
-              id="petName"
-              name="petName"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.petName}
-              className="mt-1 p-2 border rounded w-full"
-            />
-            {formik.touched.petName && formik.errors.petName && (
-              <div className="mt-1 text-red-500 text-sm">
-                <FaExclamationCircle /> {formik.errors.petName}
-              </div>
-            )}
-          </div>
           <div className=" w-full">
             <label
               htmlFor="petImage"
@@ -144,77 +113,49 @@ const AddAPet = () => {
           </div>
         </div>
 
-        {/* pet category and pet age field */}
-        <div className="flex gap-2 flex-col md:flex-row mt-3">
-          <div className="w-full">
-            <label
-              htmlFor="petAge"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Pet Age
-            </label>
-            <input
-              type="text"
-              id="petAge"
-              name="petAge"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.petAge}
-              className="mt-1 p-2 border rounded w-full"
-            />
-            {formik.touched.petAge && formik.errors.petAge && (
-              <div className="mt-1 text-red-500 text-sm">
-                <FaExclamationCircle /> {formik.errors.petAge}
-              </div>
-            )}
-          </div>
-
-          <div className="w-full mt-2">
-            <label
-              htmlFor="petCategory"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Pet Category
-            </label>
-            <Select
-              id="petCategory"
-              name="petCategory"
-              options={categories}
-              value={formik.values.petCategory}
-              onChange={(selectedOption) => {
-                formik.setFieldValue("petCategory", selectedOption);
-              }}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.petCategory && formik.errors.petCategory && (
-              <div className="error">
-                <FaExclamationCircle /> {formik.errors.petCategory}
-              </div>
-            )}
-          </div>
+        <div className="w-full">
+          <label
+            htmlFor="maximumAmount"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Maximum Donation Amount
+          </label>
+          <input
+            type="text"
+            id="maximumAmount"
+            name="maximumAmount"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.maximumAmount}
+            className="mt-1 p-2 border rounded w-full"
+          />
+          {formik.touched.maximumAmount && formik.errors.maximumAmount && (
+            <div className="mt-1 text-red-500 text-sm">
+              <FaExclamationCircle /> {formik.errors.maximumAmount}
+            </div>
+          )}
         </div>
 
-        {/* pet location and short description field */}
         <div className="flex gap-2 flex-col md:flex-row mt-5">
           <div className="w-full">
             <label
-              htmlFor="petLocation"
+              htmlFor="lastDateOfDonation"
               className="block text-sm font-medium text-gray-600"
             >
-              Pet Location
+              Last Date of Donation
             </label>
             <input
-              type="text"
-              id="petLocation"
-              name="petLocation"
+              type="date"
+              id="lastDateOfDonation"
+              name="lastDateOfDonation"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.petLocation}
+              value={formik.values.lastDateOfDonation}
               className="mt-1 p-2 border rounded w-full"
             />
-            {formik.touched.petLocation && formik.errors.petLocation && (
+            {formik.touched.lastDateOfDonation && formik.errors.lastDateOfDonation && (
               <div className="mt-1 text-red-500 text-sm">
-                <FaExclamationCircle /> {formik.errors.petLocation}
+                <FaExclamationCircle /> {formik.errors.lastDateOfDonation}
               </div>
             )}
           </div>
@@ -279,4 +220,4 @@ const AddAPet = () => {
   );
 };
 
-export default AddAPet;
+export default CreateDonation;

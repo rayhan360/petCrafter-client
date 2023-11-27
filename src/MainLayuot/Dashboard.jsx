@@ -31,7 +31,6 @@ const Dashboard = () => {
             <li>
               <NavLink
                 to="/dashboard/adoption-requests"
-                
               >
                 <FaHandsHelping /> Adoption Requests
               </NavLink>
