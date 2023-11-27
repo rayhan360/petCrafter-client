@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 const initialValues = {
   petImage: null,
   maximumAmount: "",
+  petName: "",
   lastDateOfDonation: "",
   shortDescription: "",
   longDescription: "",
@@ -38,14 +39,14 @@ const CreateDonation = () => {
         };
 
         const res = await axios.post("http://localhost:3000/donation", petData);
-        if(res.data.insertedId){
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `You'r successfully created a donation`,
-                showConfirmButton: false,
-                timer: 1500,
-              });
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `You'r successfully created a donation`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
 
         formik.resetForm();
@@ -59,6 +60,9 @@ const CreateDonation = () => {
       // Validate other fields as needed
       if (!values.petImage) {
         errors.petImage = "Pet image is required";
+      }
+      if (!values.petName) {
+        errors.petName = "Pet Name is required";
       }
       if (!values.maximumAmount) {
         errors.petAge = "Maximum Amount is required";
@@ -78,11 +82,8 @@ const CreateDonation = () => {
   });
   return (
     <div>
-      <Title
-        heading="Create Your Donation Campaign"
-      ></Title>
+      <Title heading="Create Your Donation Campaign"></Title>
       <form onSubmit={formik.handleSubmit}>
-        {/* pet image and pet pet name field */}
         <div className="flex flex-col md:flex-row gap-2">
           <div className=" w-full">
             <label
@@ -113,27 +114,51 @@ const CreateDonation = () => {
           </div>
         </div>
 
-        <div className="w-full">
-          <label
-            htmlFor="maximumAmount"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Maximum Donation Amount
-          </label>
-          <input
-            type="text"
-            id="maximumAmount"
-            name="maximumAmount"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.maximumAmount}
-            className="mt-1 p-2 border rounded w-full"
-          />
-          {formik.touched.maximumAmount && formik.errors.maximumAmount && (
-            <div className="mt-1 text-red-500 text-sm">
-              <FaExclamationCircle /> {formik.errors.maximumAmount}
-            </div>
-          )}
+        <div className="flex gap-2 flex-col md:flex-row mt-5">
+          <div className="w-full">
+            <label
+              htmlFor="maximumAmount"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Pet Name
+            </label>
+            <input
+              type="text"
+              id="petName"
+              name="petName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.petName}
+              className="mt-1 p-2 border rounded w-full"
+            />
+            {formik.touched.petName && formik.errors.petName && (
+              <div className="mt-1 text-red-500 text-sm">
+                <FaExclamationCircle /> {formik.errors.petName}
+              </div>
+            )}
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor="maximumAmount"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Maximum Donation Amount
+            </label>
+            <input
+              type="text"
+              id="maximumAmount"
+              name="maximumAmount"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.maximumAmount}
+              className="mt-1 p-2 border rounded w-full"
+            />
+            {formik.touched.maximumAmount && formik.errors.maximumAmount && (
+              <div className="mt-1 text-red-500 text-sm">
+                <FaExclamationCircle /> {formik.errors.maximumAmount}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex gap-2 flex-col md:flex-row mt-5">
@@ -153,11 +178,12 @@ const CreateDonation = () => {
               value={formik.values.lastDateOfDonation}
               className="mt-1 p-2 border rounded w-full"
             />
-            {formik.touched.lastDateOfDonation && formik.errors.lastDateOfDonation && (
-              <div className="mt-1 text-red-500 text-sm">
-                <FaExclamationCircle /> {formik.errors.lastDateOfDonation}
-              </div>
-            )}
+            {formik.touched.lastDateOfDonation &&
+              formik.errors.lastDateOfDonation && (
+                <div className="mt-1 text-red-500 text-sm">
+                  <FaExclamationCircle /> {formik.errors.lastDateOfDonation}
+                </div>
+              )}
           </div>
 
           <div className="w-full">

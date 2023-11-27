@@ -9,6 +9,9 @@ import MyPet from "../Pages/Dashboard/MyPet/MyPet";
 import Update from "../components/Update/Update";
 import CreateDonation from "../Pages/Dashboard/CreateDonation/CreateDonation";
 import MyDonationCampaing from "../Pages/Dashboard/MyDonationCampaing/MyDonationCampaing";
+import PetListing from "../Pages/PetListing/PetListing";
+import PetDetails from "../Pages/PetListing/PetDetails";
+import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest";
 
 const Router = createBrowserRouter([
   {
@@ -18,6 +21,14 @@ const Router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/petListing",
+        element: <PetListing></PetListing>
+      },
+      {
+        path: '/petDetails/:id',
+        element: <PetDetails></PetDetails>
       },
       {
         path: "/signIn",
@@ -48,6 +59,10 @@ const Router = createBrowserRouter([
         {
           path: "my-donation-campaigns",
           element: <MyDonationCampaing></MyDonationCampaing>
+        },
+        {
+          path:"adoption-requests",
+          element: <AdoptionRequest></AdoptionRequest>
         },
         {
           path: "updateItem/:id",

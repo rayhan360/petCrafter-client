@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Title from "../../../components/Common/Title";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyPet = () => {
   const axiosSecure = useAxiosSecure();
@@ -12,10 +13,28 @@ const MyPet = () => {
   const { data: pets = [] } = useQuery({
     queryKey: ["pets", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/pets?email=${user?.email}`);
+      const res = await axiosSecure.get(`/pets/user?email=${user?.email}`);
       return res.data;
     },
   });
+
+  const handleAccept = async (id) => {
+    try {
+      const res = await axiosSecure.patch(`/pets/${id}`);
+      // After accepting, refetch the adoption requests
+      if (res.data.modifiedCount) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "adoption request accepted",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      console.error("Error accepting adoption:", error);
+    }
+  };
 
   return (
     <div>
@@ -58,7 +77,9 @@ const MyPet = () => {
                   <h1>{item.petName}</h1>
                 </td>
                 <td>{item.petCategory.label}</td>
-                <td>{item.adopted === true ? "Adopted" : "Not Adopted"}</td>
+                <td>
+                  {item?.adoptionStatus === true ? "Adopted" : "Not Adopted"}
+                </td>
                 <td className="text-2xl">
                   <Link to={`/dashboard/updateItem/${item._id}`}>
                     <FaEdit />
@@ -68,14 +89,24 @@ const MyPet = () => {
                   <FaRegTrashAlt />
                 </td>
                 <td>
-                  <div className="form-control">
-                    <label className="cursor-pointer label">
-                      <input
-                        type="checkbox"
-                        className="checkbox checkbox-error"
-                      />
-                    </label>
-                  </div>
+                  {item?.adopted === false ? (
+                    <button
+                      onClick={() => handleAccept(item._id)}
+                      className="bg-[#f6425f] btn btn-sm text-white"
+                    >
+                      Adopted ?
+                    </button>
+                  ) : (
+                    <div className="form-control">
+                      <label className="cursor-pointer label">
+                        <input
+                          checked
+                          type="checkbox"
+                          className="checkbox checkbox-error"
+                        />
+                      </label>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
