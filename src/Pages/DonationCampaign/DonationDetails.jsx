@@ -28,6 +28,7 @@ const DonationDetails = () => {
     shortDescription,
     longDescription,
     petName,
+    email
   } = findDonation;
 
   return (
@@ -74,7 +75,7 @@ const DonationDetails = () => {
                 ✕
               </button>
             </form>
-            <Payment petImage={petImage} petName={petName}></Payment>
+            <Payment petImage={petImage} petName={petName} email={email}></Payment>
           </div>
         </dialog>
       </div>

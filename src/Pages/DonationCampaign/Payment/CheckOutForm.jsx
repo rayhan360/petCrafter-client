@@ -5,7 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 
-const CheckOutForm = ({petImage, petName}) => {
+const CheckOutForm = ({petImage, petName, email}) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
@@ -74,16 +74,17 @@ const CheckOutForm = ({petImage, petName}) => {
         // Now save the payment in the database
         const payment = {
           email: user?.email,
-          price: donationAmount,
+          amount: donationAmount,
           transactionId: paymentIntent.id,
           date: new Date(),
           petName, 
-          petImage
+          petImage,
+          askForDonationEmail: email
         };
 
         const res = await axiosSecure.post("/payments", payment);
         console.log("payment saved", res.data);
-        if (res.data?.paymentResult?.insertedId) {
+        if (res.data?.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",

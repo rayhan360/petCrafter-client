@@ -6,12 +6,12 @@ import CheckOutForm from "./CheckOutForm";
 const stripePromise = loadStripe(
   "pk_test_51OG3K5IZatlt8ZSlVNfH3It6mRqrCsV8ivFCq6mfeEmXu29iZ8zoJKQqSJ0j2oZ2TNgjDO6kOAru1WJeZ7g1WDXu00YiCcabtk"
 );
-const Payment = ({petImage, petName}) => {
+const Payment = ({petImage, petName, email}) => {
   return (
     <div>
       <div>
         <Elements stripe={stripePromise}>
-          <CheckOutForm petImage={petImage} petName={petName}></CheckOutForm>
+          <CheckOutForm petImage={petImage} petName={petName} email={email}></CheckOutForm>
         </Elements>
       </div>
     </div>

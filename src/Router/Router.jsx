@@ -14,6 +14,7 @@ import PetDetails from "../Pages/PetListing/PetDetails";
 import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest";
 import DonationCampaign from "../Pages/DonationCampaign/DonationCampaign";
 import DonationDetails from "../Pages/DonationCampaign/DonationDetails";
+import MyDonation from "../Pages/Dashboard/MyDonation/MyDonation";
 
 const Router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const Router = createBrowserRouter([
         {
           path:"adoption-requests",
           element: <AdoptionRequest></AdoptionRequest>
+        },
+        {
+          path: "my-donations",
+          element: <MyDonation></MyDonation>
         },
         {
           path: "updateItem/:id",

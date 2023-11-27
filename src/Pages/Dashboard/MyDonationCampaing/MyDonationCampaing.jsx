@@ -12,7 +12,7 @@ const MyDonationCampaing = () => {
   const { data: donation = [] } = useQuery({
     queryKey: ["donation", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/donation?email=${user?.email}`);
+      const res = await axiosSecure.get(`/donation/user?email=${user?.email}`);
       return res.data;
     },
   });
@@ -44,7 +44,7 @@ const MyDonationCampaing = () => {
               <td>
                 <h1>{item.petName}</h1>
               </td>
-              <td>{item.maximumAmount}</td>
+              <td>${item.maximumAmount}</td>
               <td><progress className="progress progress-error w-56" value="40" max="100"></progress></td>
               <td className="text-2xl">
                 <Link>

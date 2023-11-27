@@ -17,7 +17,6 @@ const DonationCampaign = () => {
     return <h1>Loading.....</h1>;
   }
 
-  console.log(donationCampaign);
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5">
       {donationCampaign.map((donation) => (
