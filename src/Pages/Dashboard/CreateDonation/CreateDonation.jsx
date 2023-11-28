@@ -5,6 +5,7 @@ import { FaExclamationCircle } from "react-icons/fa";
 import Title from "../../../components/Common/Title";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const initialValues = {
   petImage: null,
@@ -16,6 +17,7 @@ const initialValues = {
 };
 const CreateDonation = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
@@ -38,7 +40,7 @@ const CreateDonation = () => {
           email: user?.email,
         };
 
-        const res = await axios.post("http://localhost:3000/donation", petData);
+        const res = await axiosSecure.post("/donation", petData);
         if (res.data.insertedId) {
           Swal.fire({
             position: "top-end",

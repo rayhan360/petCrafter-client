@@ -5,6 +5,8 @@ import { CloudinaryContext, Image } from "cloudinary-react";
 import { FaExclamationCircle } from "react-icons/fa";
 import Title from "../../../components/Common/Title";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const categories = [
   { label: "Cats" },
@@ -25,6 +27,7 @@ const initialValues = {
 
 const AddAPet = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
@@ -49,7 +52,16 @@ const AddAPet = () => {
         };
   
 
-        await axios.post("http://localhost:3000/pets", petData);
+        const addPet = await axiosSecure.post("/pets", petData);
+        if(addPet.data){
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Pet Added Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
 
         formik.resetForm();
       } catch (error) {

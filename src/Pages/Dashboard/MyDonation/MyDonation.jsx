@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 // import Title from "../../../components/Common/Title";
 
 const MyDonation = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: myDonation = [] } = useQuery({
+  const { data: myDonation = [], refetch } = useQuery({
     queryKey: ["myDonation", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments/user?email=${user?.email}`);
@@ -15,6 +16,32 @@ const MyDonation = () => {
     },
   });
   console.log(myDonation);
+
+  const handleRefund = id => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You Refund this donation!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/payments/delete/${id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Refund!",
+              text: "Refund Has been successfully",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  }
 
   return (
   <div>
@@ -54,7 +81,7 @@ const MyDonation = () => {
                 </td>
                 <td>${item.amount}</td>
                 <td>
-                    <button className="btn btn-sm bg-[#f6425f] text-white">Refund</button>
+                    <button onClick={() => handleRefund(item._id)} className="btn btn-sm bg-[#f6425f] text-white">Refund</button>
                 </td>
               </tr>
             ))}

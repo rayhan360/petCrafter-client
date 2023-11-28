@@ -3,7 +3,7 @@ import signUp from "../../../assets/AnimationJson.json";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import SocialAuth from "../../../components/SocialAuth/SocialAuth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
@@ -15,6 +15,7 @@ const SignUP = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { createUser, updateUserProfile } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate()
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -58,6 +59,7 @@ const SignUP = () => {
                 timer: 1500,
               });
               e.target.reset();
+              navigate("/");
             }
           });
         });

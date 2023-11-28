@@ -16,6 +16,8 @@ import DonationCampaign from "../Pages/DonationCampaign/DonationCampaign";
 import DonationDetails from "../Pages/DonationCampaign/DonationDetails";
 import MyDonation from "../Pages/Dashboard/MyDonation/MyDonation";
 import UpdateDonation from "../components/UpdateDonation/UpdateDonation";
+import PrivateRoute from "./PrivateRoute";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 const Router = createBrowserRouter([
   {
@@ -54,8 +56,14 @@ const Router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
+      {
+        path: "all-users",
+        element: <AllUsers></AllUsers>
+      },
+
+      // normal user can this route
         {
             path: "add-pet",
             element: <AddAPet></AddAPet>

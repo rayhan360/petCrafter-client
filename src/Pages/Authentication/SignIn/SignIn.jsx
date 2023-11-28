@@ -3,7 +3,7 @@ import { useState } from "react";
 import signInImg from "../../../assets/AnimationLogin.json";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import SocialAuth from "../../../components/SocialAuth/SocialAuth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
@@ -11,6 +11,10 @@ import toast from "react-hot-toast";
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -36,6 +40,7 @@ const SignIn = () => {
               `,
         },
       })
+      navigate(from, { replace: true })
       .catch((error) => {
         console.log(error);
         if (error.code === "auth/wrong-password") {
