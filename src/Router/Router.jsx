@@ -19,6 +19,7 @@ import UpdateDonation from "../components/UpdateDonation/UpdateDonation";
 import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllPets from "../Pages/Dashboard/AllPets/AllPets";
+import AllDonation from "../Pages/Dashboard/AllDonation/AllDonation";
 
 const Router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const Router = createBrowserRouter([
       {
         path: "all-pets",
         element: <AllPets></AllPets>
+      },
+      {
+        path: "all-donations",
+        element: <AllDonation></AllDonation>
       },
 
       // normal user can this route
