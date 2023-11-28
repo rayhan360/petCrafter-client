@@ -43,6 +43,32 @@ const AdoptionRequest = () => {
     return <h1>loading......</h1>;
   }
 
+  const handleDelete = id => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Adoption Request Rejected",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/adopt/delete/${id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Reject!",
+              text: "Rejected Request",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  }
+
   const findRequest = adoption.filter(
     (item) => item.ownerEmail === user?.email
   );
@@ -64,8 +90,8 @@ const AdoptionRequest = () => {
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Address</th>
-                <th>Action</th>
-                <th>Action</th>
+                <th>Accept Request</th>
+                <th>Reject Request</th>
               </tr>
             </thead>
             <tbody>
@@ -82,8 +108,8 @@ const AdoptionRequest = () => {
                     {item?.status ? (
                       item?.status
                     ) : (
-                      <button onClick={() => handleAccept(item._id)}>
-                        Accept Request
+                      <button className="btn btn-sm" onClick={() => handleAccept(item._id)}>
+                        Accept
                       </button>
                     )}
                   </td>
@@ -91,7 +117,7 @@ const AdoptionRequest = () => {
                     {item?.status ? (
                       "Adoption Accepted"
                     ) : (
-                      <button>Reject Request</button>
+                      <button onClick={()=> handleDelete(item._id)} className="btn btn-sm">Reject</button>
                     )}
                   </td>
                 </tr>

@@ -18,6 +18,7 @@ import MyDonation from "../Pages/Dashboard/MyDonation/MyDonation";
 import UpdateDonation from "../components/UpdateDonation/UpdateDonation";
 import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import AllPets from "../Pages/Dashboard/AllPets/AllPets";
 
 const Router = createBrowserRouter([
   {
@@ -58,9 +59,14 @@ const Router = createBrowserRouter([
     path: "dashboard",
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
+      // admin route
       {
         path: "all-users",
         element: <AllUsers></AllUsers>
+      },
+      {
+        path: "all-pets",
+        element: <AllPets></AllPets>
       },
 
       // normal user can this route

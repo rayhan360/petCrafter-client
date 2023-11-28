@@ -39,7 +39,7 @@ const MyPet = () => {
   const handleDelete = id => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You Refund this donation!",
+      text: "Delete this pet!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
