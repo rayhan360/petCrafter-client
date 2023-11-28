@@ -28,8 +28,10 @@ const DonationDetails = () => {
     shortDescription,
     longDescription,
     petName,
-    email
+    email,
+    _id,
   } = findDonation;
+  console.log(findDonation?.pausedStatus);
 
   return (
     <div className="my-5">
@@ -60,13 +62,17 @@ const DonationDetails = () => {
 
         <p className="text-gray-600 mb-8">{longDescription}</p>
 
-        {/* You can open the modal using document.getElementById('ID').showModal() method */}
-        <button
-          className="bg-[#f6425f] text-white px-6 py-3 rounded-md hover:bg-[#d53e68] focus:outline-none"
-          onClick={() => document.getElementById("my_modal_3").showModal()}
-        >
-          open modal
-        </button>
+        {findDonation?.pausedStatus === true ? (
+          <p className="text-[#f6425f]">Owner Paused This donation</p>
+        ) : (
+          <button
+            className="bg-[#f6425f] text-white px-6 py-3 rounded-md hover:bg-[#d53e68] focus:outline-none"
+            onClick={() => document.getElementById("my_modal_3").showModal()}
+          >
+            Donate Now
+          </button>
+        )}
+
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
             <form method="dialog">
@@ -75,7 +81,12 @@ const DonationDetails = () => {
                 ✕
               </button>
             </form>
-            <Payment petImage={petImage} petName={petName} email={email}></Payment>
+            <Payment
+              petImage={petImage}
+              petName={petName}
+              email={email}
+              _id={_id}
+            ></Payment>
           </div>
         </dialog>
       </div>

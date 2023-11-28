@@ -12,7 +12,7 @@ import {
 const Dashboard = () => {
   return (
     <div className="">
-      <div className="bg-[#e7c7b1]">
+      <div className="bg-[#ebb692]">
           <Navbar></Navbar>
       </div>
       <div className="flex ">

@@ -109,21 +109,13 @@ const SignIn = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="inline-flex items-center">
-                    <div className="mt-4">
-                      <input type="checkbox" name="terms" id="terms" />
-                      <label className="ml-2" htmlFor="terms">
-                        Accept our terms and condition
-                      </label>
-                    </div>
-                  </div>
 
                   <button
                     className="mt-6 block w-full select-none rounded-lg bg-[#f6425f] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-[#f6425f]/20 transition-all hover:shadow-lg hover:shadow-[#f6425f]/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     type="submit"
                     data-ripple-light="true"
                   >
-                    Sign up
+                    Sign in
                   </button>
                 </form>
                 <SocialAuth></SocialAuth>

@@ -15,6 +15,7 @@ import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest"
 import DonationCampaign from "../Pages/DonationCampaign/DonationCampaign";
 import DonationDetails from "../Pages/DonationCampaign/DonationDetails";
 import MyDonation from "../Pages/Dashboard/MyDonation/MyDonation";
+import UpdateDonation from "../components/UpdateDonation/UpdateDonation";
 
 const Router = createBrowserRouter([
   {
@@ -78,6 +79,11 @@ const Router = createBrowserRouter([
         {
           path: "my-donations",
           element: <MyDonation></MyDonation>
+        },
+        {
+          path: "updateDonation/:id",
+          element: <UpdateDonation></UpdateDonation>,
+          loader: ({params}) => fetch(`http://localhost:3000/donation/request/${params.id}`)
         },
         {
           path: "updateItem/:id",

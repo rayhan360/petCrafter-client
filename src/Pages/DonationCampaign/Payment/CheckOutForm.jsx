@@ -5,7 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 
-const CheckOutForm = ({petImage, petName, email}) => {
+const CheckOutForm = ({petImage, petName, email, _id}) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
@@ -79,7 +79,8 @@ const CheckOutForm = ({petImage, petName, email}) => {
           date: new Date(),
           petName, 
           petImage,
-          askForDonationEmail: email
+          askForDonationEmail: email,
+          askerId: _id
         };
 
         const res = await axiosSecure.post("/payments", payment);

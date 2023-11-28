@@ -54,7 +54,7 @@ const Update = () => {
           petImage: cloudinaryResponse.data.secure_url,
         };
 
-        const petRes = await axiosSecure.patch(`/pets/${_id}`, petData);
+        const petRes = await axiosSecure.patch(`/pets/updateAll/${_id}`, petData);
         console.log(petRes.data);
         if (petRes.data.modifiedCount > 0) {
           Swal.fire({
