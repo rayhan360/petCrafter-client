@@ -3,6 +3,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import "./Navbar.css";
 import useAuth from "../../../hooks/useAuth";
+import logo from "../../../assets/logo.png"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const Navbar = () => {
     <div>
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <div className="flex items-center font-bold text-lg">
-          <h1>Pet Crafter</h1>
+          <img className="w-40 md:w-60" src={logo} alt="" />
         </div>
         <div className="">
           <div

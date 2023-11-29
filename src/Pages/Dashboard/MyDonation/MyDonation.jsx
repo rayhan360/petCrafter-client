@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import Title from "../../../components/Common/Title";
 // import Title from "../../../components/Common/Title";
 
 const MyDonation = () => {
@@ -45,6 +46,7 @@ const MyDonation = () => {
 
   return (
   <div>
+    <Title heading="My Donation"></Title>
     <div
         className="overflow-x-auto mt-2"
         style={{ borderRadius: "15px 15px 0px 0px" }}
