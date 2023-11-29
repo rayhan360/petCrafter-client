@@ -6,7 +6,7 @@ import SocialAuth from "../../../components/SocialAuth/SocialAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,22 +39,22 @@ const SignIn = () => {
                 animate__faster
               `,
         },
-      })
-      navigate(from, { replace: true })
-      .catch((error) => {
-        console.log(error);
-        if (error.code === "auth/wrong-password") {
-          toast.error("Incorrect password. Please try again.");
-        } else if (error.code === "auth/user-not-found") {
-          toast.error("User not found. Please check your email.");
-        } else if (error.code === "auth/invalid-login-credentials") {
-          toast.error(
-            "Invalid email or password. Please double-check your email and password."
-          );
-        } else {
-          toast.error("please provide valid password and email");
-        }
       });
+      navigate(from, { replace: true })
+    }).catch((error) => {
+      console.log(error);
+      if (error.code === "auth/wrong-password") {
+        toast.error("Incorrect password. Please try again.");
+      } else if (error.code === "auth/user-not-found") {
+        toast.error("User not found. Please check your email.");
+      } else if (error.code === "auth/invalid-login-credentials") {
+        toast.error(
+          "Invalid email or password. Please double-check your email and password."
+        );
+      } else {
+        toast.error("please provide valid password and email");
+        console.log(error);
+      }
     });
   };
   return (
@@ -137,6 +137,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+      <Toaster></Toaster>
     </div>
   );
 };

@@ -20,11 +20,15 @@ import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllPets from "../Pages/Dashboard/AllPets/AllPets";
 import AllDonation from "../Pages/Dashboard/AllDonation/AllDonation";
+import CategoryPet from "../components/CategoryPet/CategoryPet";
+import ErrorPage from "../components/Error/ErrorPage";
+import AdminRoute from "./AdminRoute";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -36,7 +40,7 @@ const Router = createBrowserRouter([
       },
       {
         path: '/petDetails/:id',
-        element: <PetDetails></PetDetails>
+        element: <PrivateRoute><PetDetails></PetDetails></PrivateRoute>
       },
       {
         path: "/donation-campaign",
@@ -44,7 +48,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/donationDetails/:id",
-        element: <DonationDetails></DonationDetails>
+        element: <PrivateRoute><DonationDetails></DonationDetails></PrivateRoute>
+      },
+      {
+        path: "/category/:categoryName",
+        element: <CategoryPet></CategoryPet>
       },
       {
         path: "/signIn",
@@ -59,55 +67,56 @@ const Router = createBrowserRouter([
   {
     path: "dashboard",
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       // admin route
       {
         path: "all-users",
-        element: <AllUsers></AllUsers>
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
       },
       {
         path: "all-pets",
-        element: <AllPets></AllPets>
+        element: <AdminRoute><AllPets></AllPets></AdminRoute>
       },
       {
         path: "all-donations",
-        element: <AllDonation></AllDonation>
+        element: <AdminRoute><AllDonation></AllDonation></AdminRoute>
       },
 
       // normal user can this route
         {
             path: "add-pet",
-            element: <AddAPet></AddAPet>
+            element: <PrivateRoute><AddAPet></AddAPet></PrivateRoute>
         },
         {
           path: "my-pets",
-          element: <MyPet></MyPet>
+          element: <PrivateRoute><MyPet></MyPet></PrivateRoute>
         },
         {
           path: "create-donation-campaign",
-          element: <CreateDonation></CreateDonation>
+          element: <PrivateRoute><CreateDonation></CreateDonation></PrivateRoute>
         },
         {
           path: "my-donation-campaigns",
-          element: <MyDonationCampaing></MyDonationCampaing>
+          element: <PrivateRoute><MyDonationCampaing></MyDonationCampaing></PrivateRoute>
         },
         {
           path:"adoption-requests",
-          element: <AdoptionRequest></AdoptionRequest>
+          element: <PrivateRoute><AdoptionRequest></AdoptionRequest></PrivateRoute>
         },
         {
           path: "my-donations",
-          element: <MyDonation></MyDonation>
+          element: <PrivateRoute><MyDonation></MyDonation></PrivateRoute>
         },
         {
           path: "updateDonation/:id",
-          element: <UpdateDonation></UpdateDonation>,
-          loader: ({params}) => fetch(`http://localhost:3000/donation/request/${params.id}`)
+          element: <PrivateRoute><UpdateDonation></UpdateDonation></PrivateRoute>,
+          loader: ({params}) => fetch(`https://pet-crafter-backend.vercel.app/donation/request/${params.id}`)
         },
         {
           path: "updateItem/:id",
-          element: <Update></Update>,
-          loader: ({params}) => fetch(`http://localhost:3000/pets/${params.id}`)
+          element: <PrivateRoute><Update></Update></PrivateRoute>,
+          loader: ({params}) => fetch(`https://pet-crafter-backend.vercel.app/pets/${params.id}`)
         }
     ]
   }

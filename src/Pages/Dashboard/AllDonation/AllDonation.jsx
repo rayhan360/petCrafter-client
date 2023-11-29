@@ -4,6 +4,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Title from "../../../components/Common/Title";
 import Swal from "sweetalert2";
+import Loading from "../../../components/Common/Loading";
 
 
 const AllDonation = () => {
@@ -18,7 +19,7 @@ const AllDonation = () => {
     });
   
     if (isPending) {
-      return <h1>Loading.....</h1>;
+      return <Loading></Loading>;
     }
 
     const handlePaused = async (id) => {

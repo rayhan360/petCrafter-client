@@ -93,6 +93,7 @@ const CheckOutForm = ({petImage, petName, email, _id}) => {
             showConfirmButton: false,
             timer: 1500,
           });
+          
         }
       }
     }

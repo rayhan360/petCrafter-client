@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Title from "../../../components/Common/Title";
 import Swal from "sweetalert2";
+import Loading from "../../../components/Common/Loading";
 
 const AdoptionRequest = () => {
   const axiosSecure = useAxiosSecure();
@@ -40,7 +41,7 @@ const AdoptionRequest = () => {
   };
 
   if (isLoading) {
-    return <h1>loading......</h1>;
+    return <Loading></Loading>;
   }
 
   const handleDelete = id => {

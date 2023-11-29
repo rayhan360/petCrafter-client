@@ -30,6 +30,7 @@ const MyPet = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        refetch()
       }
     } catch (error) {
       console.error("Error accepting adoption:", error);

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import AdoptForm from "./AdoptForm";
+import Loading from "../../components/Common/Loading";
 
 const PetDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const PetDetails = () => {
   });
 
   if (isPending) {
-    return <h1>Loading......</h1>;
+    return <Loading></Loading>;
   }
   const findPets = allPets.find((detail) => detail._id === id);
   const {

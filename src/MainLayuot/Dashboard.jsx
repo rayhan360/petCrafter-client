@@ -1,4 +1,5 @@
-import {  NavLink, Outlet } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 import {
   FaDog,
@@ -14,19 +15,35 @@ import {
 import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-  const [isAdmin] = useAdmin()
+  const [isAdmin] = useAdmin();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
   return (
     <div className="">
       <div className="bg-[#ebb692]">
-          <Navbar></Navbar>
+        <Navbar></Navbar>
       </div>
-      <div className="flex ">
-        <div className="w-64 min-h-screen bg-[#e7c7b1]">
+      <div className="flex flex-col lg:flex-row">
+        <button
+          onClick={toggleNav}
+          className="lg:hidden bg-[#e7c7b1] p-2 text-xl"
+        >
+          {isNavOpen ? "Close" : "Open"} Dashboard
+        </button>
+        <div
+          className={`w-full lg:w-64 min-h-screen bg-[#e7c7b1] ${
+            isNavOpen ? "" : "hidden lg:block"
+          }`}
+        >
           <ul className="menu">
-          {isAdmin && (
+            {isAdmin && (
               <>
-              {/* admin route */}
-              <h1 className="text-xl my-2 font-bold">Admin Dashboard</h1>
+                {/* admin route */}
+                <h1 className="text-xl my-2 font-bold">Admin Dashboard</h1>
                 <li>
                   <NavLink to="/dashboard/all-users">
                     <FaUsers /> All Users
@@ -82,7 +99,7 @@ const Dashboard = () => {
           </ul>
         </div>
 
-        {/* outlet */}
+        {/* Outlet */}
         <div className="flex-1 p-8 bg-white">
           <Outlet />
         </div>
