@@ -5,9 +5,6 @@ const NewsLatter = () => {
         <h2 className="text-2xl text-white font-bold mb-4">
           Subscribe to Our Newsletter
         </h2>
-        <p className="text-white">
-          Get regular updates in your inbox to borrow a news books
-        </p>
         <form className="mt-4">
           <label className="block mb-2 text-white">Email Address</label>
           <input

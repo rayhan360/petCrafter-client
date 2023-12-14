@@ -1,27 +1,49 @@
 import { FaEnvelope, FaLocationArrow, FaPhone } from "react-icons/fa";
 import img from "../../../assets/contactbg1.png";
 import Title from "../../../components/Common/Title";
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 
 const ContactUs = () => {
+  const form = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_aily0fo",
+        "template_j0wxgeu",
+        form.current,
+        "gACTYhMk5losqsZE5"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          toast.success("email send successfully");
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
     <div>
-        <Title heading="Contact Us" ></Title>
+      <Title heading="Contact Us"></Title>
       <div className="grid lg:grid-cols-3 gap-3 mb-5">
         <div className="grid md:grid-cols-2 col-span-2">
           <div className="hidden md:block">
             <img className="" src={img} alt="Contact Background" />
           </div>
-          <div className="bg-[#f6435f] text-white p-6 h-[600px] rounded-md">
-            <h1 className="text-2xl font-bold mb-4 text-center">
+          <div className="bg-[#f6435f] p-6 h-[600px] rounded-md">
+            <h1 className="text-2xl font-bold mb-4 text-center text-white">
               Send a Message
             </h1>
-            <form onSubmit={handleSubmit}>
+            <form ref={form} onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium">
+                <label htmlFor="name" className="block text-sm font-medium text-white">
                   Name
                 </label>
                 <input
@@ -33,7 +55,7 @@ const ContactUs = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium">
+                <label htmlFor="email" className="block text-sm font-medium text-white">
                   Email
                 </label>
                 <input
@@ -45,7 +67,7 @@ const ContactUs = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="subject" className="block text-sm font-medium">
+                <label htmlFor="subject" className="block text-sm font-medium text-white">
                   Subject
                 </label>
                 <input
@@ -57,7 +79,7 @@ const ContactUs = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="message" className="block text-sm font-medium">
+                <label htmlFor="message" className="block text-sm font-medium text-white">
                   Message
                 </label>
                 <textarea
