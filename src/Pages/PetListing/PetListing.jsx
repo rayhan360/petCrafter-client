@@ -37,7 +37,7 @@ const PetListing = () => {
   };
 
   return (
-    <div className="my-7 mx-2 sm:mx-4 md:mx-8 lg:mx-16">
+    <div className="my-7 mx-2 sm:mx-4 md:mx-8 lg:mx-16 lg:mt-24">
       <div className="">
         <form onSubmit={handleSearch} className="my-5">
           <input

@@ -3,10 +3,15 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Title from "../../../components/Common/Title";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Common/Loading";
+import Admin from "./Admin";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: users = [], isLoading, refetch } = useQuery({
+  const {
+    data: users = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
@@ -21,6 +26,9 @@ const AllUsers = () => {
       </>
     );
   }
+
+  const adminUsers = users.filter((user) => user.role === "admin");
+  const normalUsers = users.filter((user) => user.role === "user");
 
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
@@ -41,9 +49,10 @@ const AllUsers = () => {
   return (
     <div className="p-4">
       <Title subHeading="How Many??" heading="MANAGE ALL USERS"></Title>
+      <Admin users={adminUsers}></Admin>
       <div className="bg-white p-4 overflow-x-auto rounded-md">
         <div className="mb-4">
-          <h2 className="text-2xl">Total Users: {users.length}</h2>
+          <h2 className="text-2xl">Normal Users: {normalUsers.length}</h2>
         </div>
         <div className="overflow-x-auto mt-2">
           <table className="min-w-full table-auto">
@@ -57,7 +66,7 @@ const AllUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {normalUsers.map((user, index) => (
                 <tr key={user._id}>
                   <td className="py-2 px-4">{index + 1}</td>
                   <td className="py-2 px-4">
@@ -69,10 +78,10 @@ const AllUsers = () => {
                       />
                     </div>
                   </td>
-                  <td className="py-2 px-4">
+                  <td className="py-2 px-4 text-center">
                     <h1 className="font-semibold">{user.name}</h1>
                   </td>
-                  <td className="py-2 px-4">
+                  <td className="py-2 px-4 text-center">
                     <h1>{user.email}</h1>
                   </td>
                   <td className="py-2 px-4">

@@ -22,6 +22,7 @@ const ContactUs = () => {
         (result) => {
           console.log(result.text);
           toast.success("email send successfully");
+          e.target.reset();
         },
         (error) => {
           console.log(error.text);
@@ -43,7 +44,10 @@ const ContactUs = () => {
             </h1>
             <form ref={form} onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium text-white">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-white"
+                >
                   Name
                 </label>
                 <input
@@ -55,7 +59,10 @@ const ContactUs = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-white">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-white"
+                >
                   Email
                 </label>
                 <input
@@ -67,7 +74,10 @@ const ContactUs = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="subject" className="block text-sm font-medium text-white">
+                <label
+                  htmlFor="subject"
+                  className="block text-sm font-medium text-white"
+                >
                   Subject
                 </label>
                 <input
@@ -79,7 +89,10 @@ const ContactUs = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="message" className="block text-sm font-medium text-white">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-white"
+                >
                   Message
                 </label>
                 <textarea
@@ -125,6 +138,16 @@ const ContactUs = () => {
               <FaLocationArrow></FaLocationArrow>
               <span>Mirpur 10, Dhaka-1207, Bangladesh</span>
             </div>
+          </div>
+          <div className="mt-5">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82602.31501341965!2d90.3155839018504!3d23.799351517367104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka!5e0!3m2!1sen!2sbd!4v1703443595914!5m2!1sen!2sbd"
+              width="370"
+              height="320"
+              allowfullscreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import Navbar from "../Pages/Shared/Navbar/Navbar";
+import logo from "../assets/logo.png";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import {
   FaDog,
   FaList,
@@ -11,22 +11,29 @@ import {
   FaUsers,
   FaPaw,
   FaDonate,
+  FaHome,
+  FaHandHoldingHeart,
 } from "react-icons/fa";
 import useAdmin from "../hooks/useAdmin";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const { logOut } = useAuth();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
 
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+
   return (
-    <div className="">
-      <div className="bg-[#ebb692]">
-        <Navbar></Navbar>
-      </div>
+    <div>
       <div className="flex flex-col lg:flex-row">
         <button
           onClick={toggleNav}
@@ -40,6 +47,9 @@ const Dashboard = () => {
           }`}
         >
           <ul className="menu">
+            <Link to="/">
+              <img className="w-40 md:w-60" src={logo} alt="" />
+            </Link>
             {isAdmin && (
               <>
                 {/* admin route */}
@@ -96,7 +106,35 @@ const Dashboard = () => {
                 <FaHeart /> My Donations
               </NavLink>
             </li>
+            <li>
+              <hr className="my-2 border-t-2 border-gray-300" />
+            </li>
+            <li>
+              <NavLink to="/">
+                <FaHome></FaHome> Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/petListing">
+                <FaPaw /> Pet Listing
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/donation-campaign">
+                <FaHandHoldingHeart /> Donation Campaign
+              </NavLink>
+            </li>
           </ul>
+          <div>
+            <button
+              onClick={handleLogOut}
+              className=" bg-[#f6425f] text-white px-5 py-2 rounded-md ml-3 hover:border hover:border-[#f6425f]"
+              type="button"
+              data-ripple-light="true"
+            >
+              Log Out
+            </button>
+          </div>
         </div>
 
         {/* Outlet */}

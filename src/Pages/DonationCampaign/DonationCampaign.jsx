@@ -12,7 +12,6 @@ const DonationCampaign = () => {
     fetchNextPage,
     hasNextPage,
     isFetching,
-    isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["donationCampaign"],
     queryFn: async ({ pageParam = 0 }) => {
@@ -34,13 +33,8 @@ const DonationCampaign = () => {
       next={fetchNextPage}
       hasMore={hasNextPage}
       loader={<Loading></Loading>}
-      endMessage={
-        <p style={{ textAlign: "center" }}>
-          {isFetchingNextPage && <Loading></Loading>}
-        </p>
-      }
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5 lg:mt-24">
         {donationCampaign.pages.map((page) =>
           page.map((donation) => (
             <div key={donation._id}>
