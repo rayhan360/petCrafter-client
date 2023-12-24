@@ -23,6 +23,7 @@ import AllDonation from "../Pages/Dashboard/AllDonation/AllDonation";
 import CategoryPet from "../components/CategoryPet/CategoryPet";
 import ErrorPage from "../components/Error/ErrorPage";
 import AdminRoute from "./AdminRoute";
+import Overview from "../Pages/Dashboard/Overview/Overview";
 
 const Router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const Router = createBrowserRouter([
     errorElement:<ErrorPage></ErrorPage>,
     children: [
       // admin route
+      {
+        path: "overview",
+        element: <Overview></Overview>
+      },
       {
         path: "all-users",
         element: <AdminRoute><AllUsers></AllUsers></AdminRoute>

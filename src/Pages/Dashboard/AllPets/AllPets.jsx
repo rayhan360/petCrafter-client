@@ -1,28 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Title from "../../../components/Common/Title";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Common/Loading";
+import usePets from "../../../hooks/usePets";
 
 
 const AllPets = () => {
     const axiosSecure = useAxiosSecure();
-
-    const {
-        data: allPets = [],
-        refetch,
-        isPending,
-      } = useQuery({
-        queryKey: ["allPets"],
-        queryFn: async () => {
-          const res = await axiosSecure.get(
-            `/pets/allPets`
-          );
-          return res.data;
-        },
-      });
+  const [allPets, refetch, isPending] = usePets()
     
       if (isPending) {
         return <Loading></Loading>;

@@ -13,6 +13,7 @@ import {
   FaDonate,
   FaHome,
   FaHandHoldingHeart,
+  FaEye,
 } from "react-icons/fa";
 import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
@@ -54,6 +55,11 @@ const Dashboard = () => {
               <>
                 {/* admin route */}
                 <h1 className="text-xl my-2 font-bold">Admin Dashboard</h1>
+                <li>
+                  <NavLink to="/dashboard/overview">
+                    <FaEye></FaEye> Overview
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink to="/dashboard/all-users">
                     <FaUsers /> All Users

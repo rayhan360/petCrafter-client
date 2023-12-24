@@ -1,23 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Title from "../../../components/Common/Title";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Common/Loading";
 import Admin from "./Admin";
+import useUser from "../../../hooks/useUser";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
-  const {
-    data: users = [],
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/users");
-      return res.data;
-    },
-  });
+  const [users, isLoading, refetch] = useUser()
 
   if (isLoading) {
     return (

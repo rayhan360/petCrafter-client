@@ -1,23 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Title from "../../../components/Common/Title";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Common/Loading";
+import useDonation from "../../../hooks/useDonation";
 
 
 const AllDonation = () => {
     const axiosSecure = useAxiosSecure()
+    const [allDonation, isPending, refetch] = useDonation()
 
-    const { data: allDonation = [], isPending, refetch } = useQuery({
-      queryKey: ["allDonation"],
-      queryFn: async () => {
-        const res = await axiosSecure.get("/donation");
-        return res.data;
-      },
-    });
-  
     if (isPending) {
       return <Loading></Loading>;
     }
