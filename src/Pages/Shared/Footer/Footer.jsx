@@ -23,14 +23,17 @@ const Footer = () => {
             </a>
           </div>
           <div className="flex space-x-4">
-            <Link>Home</Link>
-            <Link>Pet Listing</Link>
-            <Link>Donation Campaign</Link>
+            <Link to="/">Home</Link>
+            <Link to="petListing">Pet Listing</Link>
+            <Link to="donation-campaign">Donation Campaign</Link>
             
           </div>
         </div>
       </div>
-      <div className="mt-8 text-center">
+      <div className="mt-5 text-center">
+      <p>Designed and Developed by <a href="https://elaborate-douhua-6deaae.netlify.app/"><span className="text-[#f6425f]">Md. Redoan Ahammad</span></a></p>
+      </div>
+      <div className="mt-5 text-center">
         <p>&copy; 2023 PetCrafter. All rights reserved.</p>
       </div>
     </footer>

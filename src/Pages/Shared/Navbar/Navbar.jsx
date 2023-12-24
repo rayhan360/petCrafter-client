@@ -18,7 +18,7 @@ const Navbar = () => {
     <div>
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <div className="flex items-center font-bold text-lg">
-          <img className="w-40 md:w-60" src={logo} alt="" />
+          <Link to='/'><img className="w-40 md:w-60" src={logo} alt="" /></Link>
         </div>
         <div className="">
           <div
@@ -71,7 +71,7 @@ const Navbar = () => {
                           <a className="justify-between">{user.displayName}</a>
                         </li>
                         <li>
-                          <Link to="/dashboard"><p>Dashboard</p></Link>
+                          <Link to="/dashboard/add-pet"><p>Dashboard</p></Link>
                         </li>
                         <li>
                           <button

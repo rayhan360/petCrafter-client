@@ -47,7 +47,7 @@ const AllUsers = () => {
         </div>
         <div className="overflow-x-auto mt-2">
           <table className="min-w-full table-auto">
-            <thead className="bg-[#D1A054B2] text-white">
+            <thead className="bg-[#e7c7b1] text-white">
               <tr>
                 <th className="py-2 px-4"> # </th>
                 <th className="py-2 px-4"> Profile </th>
