@@ -131,7 +131,7 @@ const Dashboard = () => {
               </NavLink>
             </li>
           </ul>
-          <div>
+          <div className="mb-3">
             <button
               onClick={handleLogOut}
               className=" bg-[#f6425f] text-white px-5 py-2 rounded-md ml-3 hover:border hover:border-[#f6425f]"
