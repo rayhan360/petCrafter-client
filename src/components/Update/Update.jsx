@@ -75,7 +75,6 @@ const Update = () => {
       const errors = {};
 
       // Validate other fields as needed
-
       if (!values.petName) {
         errors.petName = "Pet name is required";
       }

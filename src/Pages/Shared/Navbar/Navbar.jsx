@@ -3,7 +3,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import "./Navbar.css";
 import useAuth from "../../../hooks/useAuth";
-import logo from "../../../assets/logo.png"
+import logo from "../../../assets/logo.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -11,21 +11,21 @@ const Navbar = () => {
 
   const [navbarBackground, setNavbarBackground] = useState("transparent");
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setNavbarBackground("bg-white");
-            } else {
-                setNavbarBackground("transparent");
-            }
-        };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setNavbarBackground("bg-white");
+      } else {
+        setNavbarBackground("transparent");
+      }
+    };
 
-        window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleLogOut = () => {
     logOut()
@@ -33,10 +33,14 @@ const Navbar = () => {
       .catch((error) => console.log(error));
   };
   return (
-    <div className={`lg:fixed top-0 left-0 right-0 bg-white lg:bg-${navbarBackground} transition-all duration-300 z-50`}>
+    <div
+      className={`lg:fixed top-0 left-0 right-0 bg-white lg:bg-${navbarBackground} transition-all duration-300 z-50`}
+    >
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <div className="flex items-center font-bold text-lg">
-          <Link to='/'><img className="w-40 md:w-60" src={logo} alt="" /></Link>
+          <Link to="/">
+            <img className="w-40 md:w-60" src={logo} alt="" />
+          </Link>
         </div>
         <div className="">
           <div
@@ -66,6 +70,11 @@ const Navbar = () => {
                   <li>
                     <NavLink to="/donation-campaign">Donation Campaign</NavLink>
                   </li>
+                  <li>
+                    <Link to="/dashboard/add-pet">
+                      <p>Dashboard</p>
+                    </Link>
+                  </li>
                 </ul>
                 <div>
                   {user ? (
@@ -75,10 +84,7 @@ const Navbar = () => {
                         className="btn btn-ghost btn-circle avatar"
                       >
                         <div className="w-10 rounded-full">
-                          <img
-                            alt="Tailwind CSS Navbar component"
-                            src={user.photoURL}
-                          />
+                          <img alt={user.displayName} src={user.photoURL} />
                         </div>
                       </label>
                       <ul
@@ -89,7 +95,9 @@ const Navbar = () => {
                           <a className="justify-between">{user.displayName}</a>
                         </li>
                         <li>
-                          <Link to="/dashboard/add-pet"><p>Dashboard</p></Link>
+                          <Link to="/dashboard/add-pet">
+                            <p>Dashboard</p>
+                          </Link>
                         </li>
                         <li>
                           <button
